@@ -6,7 +6,7 @@
 /*   By: jalombar <jalombar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:45:47 by jalombar          #+#    #+#             */
-/*   Updated: 2024/05/08 17:42:06 by jalombar         ###   ########.fr       */
+/*   Updated: 2024/05/16 17:30:27 by jalombar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,21 @@
 int	ft_sort(va_list args, char format)
 {
 	if (format == 'c')
-		return (ft_printf_c(va_arg(args, int)));
+		return (ft_print_c(va_arg(args, int)));
 	else if (format == 's')
-		return (ft_printf_s(va_arg(args, char *)));
+		return (ft_print_s(va_arg(args, char *)));
 	else if (format == 'p')
-		return (ft_printf_p(va_arg(args, void *)));
+		return (ft_print_ptr(va_arg(args, void *)));
 	else if (format == 'd' || format == 'i')
-		return (ft_printf_i(va_arg(args, int)));
+		return (ft_print_nbr(va_arg(args, int)));
 	else if (format == 'u')
-		return (ft_printf_u(va_arg(args, unsigned long)));
+		return (ft_print_nbr(va_arg(args, long)));
 	else if (format == 'x')
-		return (ft_printf_x(va_arg(args, unsigned int)));
+		return (ft_print_x(va_arg(args, unsigned int), 'x'));
 	else if (format == 'X')
-		return (ft_printf_xx(va_arg(args, unsigned int)));
+		return (ft_print_x(va_arg(args, unsigned int), 'X'));
 	else if (format == '%')
-		return (ft_printf_z(va_arg(args, int)));
+		return (ft_print_c('%'));
 	else
 		return (0);
 }
@@ -39,28 +39,30 @@ int	ft_printf(const char *format, ...)
 	int		i;
 	int		count;
 	int		temp;
+	int		args_count;
 	va_list	args;
 
 	i = 0;
 	count = 0;
 	temp = 0;
+	args_count = 0;
 	if (!format)
 		return (0);
 	va_start(args, format);
-	printf("%s\n", "here");
 	while (format[i])
 	{
 		if (format[i] != '%')
-			ft_printf_c(format[i]);
+			ft_print_c(format[i]);
 		else
 		{
 			i++;
 			temp = ft_sort(args, format[i]);
+			args_count++;
 			if (!temp)
 			{
-				ft_printf_c(format[i - 1]);
-				ft_printf_c(format[i]);
-				count = count + 2;
+				/* ft_print_c(format[i - 1]);
+				ft_print_c(format[i]);
+				count = count + 2; */
 			}
 			else
 				count = count + temp;
@@ -68,6 +70,23 @@ int	ft_printf(const char *format, ...)
 		i++;
 	}
 	va_end(args);
-	write(1, "\n", 1);
-	return (count + i - 1);
+	/* printf("%i\n", count);
+	printf("%i\n", i);
+	printf("%i\n", args_count); */
+	return (count + i - (args_count * 2));
 }
+
+/* int	main(void)
+{
+	printf("C: %i\n", ft_printf(" %p %p ", LONG_MIN, LONG_MAX));
+	printf("CP: %i \n", printf(" %p %p ", LONG_MIN, LONG_MAX));
+	printf("C: %i\n", ft_printf(" %p %p ", INT_MIN, INT_MAX));
+	printf("CP: %i \n", printf(" %p %p ", INT_MIN, INT_MAX));
+
+	return (0);
+} */
+
+/* printf("C: %i\n", ft_printf(" %u ", ULONG_MAX));
+	printf("CP: %i \n", printf(" %u ", ULONG_MAX));
+	printf("C: %i\n", ft_printf(" %u ", 9223372036854775807LL));
+	printf("CP: %i \n", printf(" %u ", 9223372036854775807LL)); */

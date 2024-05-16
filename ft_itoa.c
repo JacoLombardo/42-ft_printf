@@ -6,7 +6,7 @@
 /*   By: jalombar <jalombar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 15:43:16 by jalombar          #+#    #+#             */
-/*   Updated: 2024/05/08 17:15:55 by jalombar         ###   ########.fr       */
+/*   Updated: 2024/05/16 15:13:54 by jalombar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_reverse(char *str)
 	}
 }
 
-void	ft_breaknbr(int n, char *str, int i)
+void	ft_breaknbr(long n, char *str, int i)
 {
 	if (n >= 10)
 	{
@@ -40,7 +40,7 @@ void	ft_breaknbr(int n, char *str, int i)
 		str[i] = n + '0';
 }
 
-int	ft_checklen(int n)
+int	ft_checklen(long n)
 {
 	int	counter;
 
@@ -60,7 +60,7 @@ int	ft_checklen(int n)
 	return (counter);
 }
 
-char	*ft_itoa(int n)
+char	*ft_itoa(long n)
 {
 	char	*str;
 	int		len;
@@ -71,8 +71,6 @@ char	*ft_itoa(int n)
 	str = (char *)malloc((len + 1) * sizeof(char));
 	if (!str)
 		return (NULL);
-	if (n == INT_MIN)
-		return (str = ft_memcpy(str, "-2147483648", 12));
 	if (n < 0)
 	{
 		negative = 1;

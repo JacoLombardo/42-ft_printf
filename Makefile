@@ -6,13 +6,13 @@
 #    By: jalombar <jalombar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/08 12:40:11 by jalombar          #+#    #+#              #
-#    Updated: 2024/05/08 17:46:44 by jalombar         ###   ########.fr        #
+#    Updated: 2024/05/16 16:32:34 by jalombar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc   
 CFLAGS = -Wall -Werror -Wextra
-SRCS = ft_printf.c ft_printf_c.c ft_printf_s.c ft_printf_p.c ft_printf_i.c ft_printf_u.c ft_printf_x.c ft_printf_xx.c ft_printf_z.c ft_strlen.c ft_memcpy.c ft_itoa.c
+SRCS = ft_printf.c ft_print_char.c ft_print_ptr.c ft_print_nbr.c ft_strlen.c ft_memcpy.c ft_itoa.c ft_strdup.c
 OBJS = $(SRCS:.c=.o)
 HEADER = ft_printf.h
 NAME = libftprintf.a
