@@ -6,7 +6,7 @@
 /*   By: jalombar <jalombar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 17:16:43 by jalombar          #+#    #+#             */
-/*   Updated: 2024/05/17 13:03:59 by jalombar         ###   ########.fr       */
+/*   Updated: 2024/05/17 15:17:56 by jalombar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,17 +57,6 @@ char	*ft_address(long nb)
 	address[len] = '\0';
 	free(hexa);
 	return (address);
-}
-
-int	ft_free(long nb, char *(*f)(long nb))
-{
-	int		ret;
-	char	*str;
-
-	str = f(nb);
-	ret = ft_print_s(str);
-	free(str);
-	return (ret);
 }
 
 int	ft_print_ptr(void *p)

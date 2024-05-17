@@ -6,11 +6,22 @@
 /*   By: jalombar <jalombar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:45:47 by jalombar          #+#    #+#             */
-/*   Updated: 2024/05/17 13:01:30 by jalombar         ###   ########.fr       */
+/*   Updated: 2024/05/17 16:15:32 by jalombar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+int	ft_free(long nb, char *(*f)(long nb))
+{
+	int		ret;
+	char	*str;
+
+	str = f(nb);
+	ret = ft_print_s(str);
+	free(str);
+	return (ret);
+}
 
 int	ft_sort(va_list args, char format)
 {
@@ -38,13 +49,11 @@ int	ft_printf(const char *format, ...)
 {
 	int		i;
 	int		count;
-	int		temp;
 	int		args_count;
 	va_list	args;
 
 	i = 0;
 	count = 0;
-	temp = 0;
 	args_count = 0;
 	if (!format)
 		return (0);
@@ -56,9 +65,8 @@ int	ft_printf(const char *format, ...)
 		else
 		{
 			i++;
-			temp = ft_sort(args, format[i]);
+			count = count + ft_sort(args, format[i]);
 			args_count++;
-			count = count + temp;
 		}
 		i++;
 	}
@@ -68,9 +76,7 @@ int	ft_printf(const char *format, ...)
 
 /* int	main(void)
 {
-	printf("C: %i\n", ft_printf(" %u ", ULONG_MAX));
-	printf("CP: %i \n", printf(" %u ", ULONG_MAX));
-	printf("C: %i\n", ft_printf(" %u ", 9223372036854775807LL));
-	printf("CP: %i \n", printf(" %u ", 9223372036854775807LL));
+	printf("C: %i\n", ft_printf(" %p %p ", ULONG_MAX, -ULONG_MAX));
+	printf("CP: %i \n", printf(" %p %p ", ULONG_MAX, -ULONG_MAX));
 	return (0);
 } */
