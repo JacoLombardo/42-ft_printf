@@ -6,7 +6,7 @@
 /*   By: jalombar <jalombar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:45:47 by jalombar          #+#    #+#             */
-/*   Updated: 2024/05/16 17:30:27 by jalombar         ###   ########.fr       */
+/*   Updated: 2024/05/17 13:01:30 by jalombar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ft_sort(va_list args, char format)
 	else if (format == 'd' || format == 'i')
 		return (ft_print_nbr(va_arg(args, int)));
 	else if (format == 'u')
-		return (ft_print_nbr(va_arg(args, long)));
+		return (ft_print_nbr(va_arg(args, unsigned int)));
 	else if (format == 'x')
 		return (ft_print_x(va_arg(args, unsigned int), 'x'));
 	else if (format == 'X')
@@ -58,35 +58,19 @@ int	ft_printf(const char *format, ...)
 			i++;
 			temp = ft_sort(args, format[i]);
 			args_count++;
-			if (!temp)
-			{
-				/* ft_print_c(format[i - 1]);
-				ft_print_c(format[i]);
-				count = count + 2; */
-			}
-			else
-				count = count + temp;
+			count = count + temp;
 		}
 		i++;
 	}
 	va_end(args);
-	/* printf("%i\n", count);
-	printf("%i\n", i);
-	printf("%i\n", args_count); */
 	return (count + i - (args_count * 2));
 }
 
 /* int	main(void)
 {
-	printf("C: %i\n", ft_printf(" %p %p ", LONG_MIN, LONG_MAX));
-	printf("CP: %i \n", printf(" %p %p ", LONG_MIN, LONG_MAX));
-	printf("C: %i\n", ft_printf(" %p %p ", INT_MIN, INT_MAX));
-	printf("CP: %i \n", printf(" %p %p ", INT_MIN, INT_MAX));
-
-	return (0);
-} */
-
-/* printf("C: %i\n", ft_printf(" %u ", ULONG_MAX));
+	printf("C: %i\n", ft_printf(" %u ", ULONG_MAX));
 	printf("CP: %i \n", printf(" %u ", ULONG_MAX));
 	printf("C: %i\n", ft_printf(" %u ", 9223372036854775807LL));
-	printf("CP: %i \n", printf(" %u ", 9223372036854775807LL)); */
+	printf("CP: %i \n", printf(" %u ", 9223372036854775807LL));
+	return (0);
+} */

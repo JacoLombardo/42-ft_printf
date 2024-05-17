@@ -6,7 +6,7 @@
 /*   By: jalombar <jalombar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:41:59 by jalombar          #+#    #+#             */
-/*   Updated: 2024/05/16 17:12:48 by jalombar         ###   ########.fr       */
+/*   Updated: 2024/05/17 12:57:50 by jalombar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,9 @@ int		ft_printf(const char *format, ...);
 int		ft_print_c(char c);
 int		ft_print_s(char *s);
 int		ft_print_ptr(void *p);
-int		ft_print_nbr(long i);
+int		ft_print_nbr(long nb);
 int		ft_print_x(long nb, char type);
 int		ft_strlen(const char *s);
-void	*ft_memcpy(void *dest, const void *src, int n);
 char	*ft_itoa(long n);
 int		ft_checklen(long n);
 char	*ft_strdup(const char *s);

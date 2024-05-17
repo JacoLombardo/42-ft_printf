@@ -6,7 +6,7 @@
 /*   By: jalombar <jalombar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 12:25:41 by jalombar          #+#    #+#             */
-/*   Updated: 2024/05/16 16:48:15 by jalombar         ###   ########.fr       */
+/*   Updated: 2024/05/17 12:25:21 by jalombar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ int	ft_print_s(char *s)
 
 	i = 0;
 	if (!s)
-		return (0);
+	{
+		free(s);
+		return (ft_print_s("(null)"));
+	}
 	while (s[i])
 	{
 		write(1, &s[i], 1);
