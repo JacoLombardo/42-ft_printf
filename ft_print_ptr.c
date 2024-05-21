@@ -6,65 +6,28 @@
 /*   By: jalombar <jalombar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 17:16:43 by jalombar          #+#    #+#             */
-/*   Updated: 2024/05/17 15:17:56 by jalombar         ###   ########.fr       */
+/*   Updated: 2024/05/21 11:52:09 by jalombar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_checklen_hexa(long n)
+int	ft_putnbr_base(unsigned long nb, char *base)
 {
 	int	counter;
 
-	counter = 1;
-	if (n == LONG_MIN)
-		counter = 16;
-	else
-	{
-		while (n >= 16)
-		{
-			n = n / 16;
-			counter++;
-		}
-	}
-	return (counter);
+	counter = 0;
+	if (nb / 16)
+		counter += ft_putnbr_base((nb / 16), base);
+	ft_print_c(base[nb % 16]);
+	return (++counter);
 }
 
-char	*ft_address(long nb)
+int	ft_print_ptr(unsigned long p)
 {
-	char	*address;
-	char	*hexa;
-	int		i;
-	int		len;
-	int		temp;
-
-	i = 0;
-	len = ft_checklen_hexa(nb) + 2;
-	temp = 0;
-	hexa = ft_strdup("0123456789abcdef");
-	address = (char *)malloc((len + 1) * sizeof(char));
-	address[0] = '0';
-	address[1] = 'x';
-	while (nb != 0)
-	{
-		temp = nb % 16;
-		if (temp < 0)
-			temp = temp + 16;
-		address[len - i - 1] = hexa[temp];
-		nb /= 16;
-		i++;
-	}
-	address[len] = '\0';
-	free(hexa);
-	return (address);
-}
-
-int	ft_print_ptr(void *p)
-{
-	long	address;
-
 	if (!p)
 		return (ft_print_s("(nil)"));
-	address = (long)p;
-	return (ft_free(address, ft_address));
+	ft_print_c('0');
+	ft_print_c('x');
+	return (ft_putnbr_base(p, "0123456789abcdef") + 2);
 }

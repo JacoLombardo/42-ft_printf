@@ -6,22 +6,11 @@
 /*   By: jalombar <jalombar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:45:47 by jalombar          #+#    #+#             */
-/*   Updated: 2024/05/17 16:15:32 by jalombar         ###   ########.fr       */
+/*   Updated: 2024/05/21 12:10:05 by jalombar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-int	ft_free(long nb, char *(*f)(long nb))
-{
-	int		ret;
-	char	*str;
-
-	str = f(nb);
-	ret = ft_print_s(str);
-	free(str);
-	return (ret);
-}
 
 int	ft_sort(va_list args, char format)
 {
@@ -30,15 +19,15 @@ int	ft_sort(va_list args, char format)
 	else if (format == 's')
 		return (ft_print_s(va_arg(args, char *)));
 	else if (format == 'p')
-		return (ft_print_ptr(va_arg(args, void *)));
+		return (ft_print_ptr(va_arg(args, unsigned long)));
 	else if (format == 'd' || format == 'i')
 		return (ft_print_nbr(va_arg(args, int)));
 	else if (format == 'u')
 		return (ft_print_nbr(va_arg(args, unsigned int)));
 	else if (format == 'x')
-		return (ft_print_x(va_arg(args, unsigned int), 'x'));
+		return (ft_putnbr_base(va_arg(args, unsigned int), "0123456789abcdef"));
 	else if (format == 'X')
-		return (ft_print_x(va_arg(args, unsigned int), 'X'));
+		return (ft_putnbr_base(va_arg(args, unsigned int), "0123456789ABCDEF"));
 	else if (format == '%')
 		return (ft_print_c('%'));
 	else
@@ -56,7 +45,7 @@ int	ft_printf(const char *format, ...)
 	count = 0;
 	args_count = 0;
 	if (!format)
-		return (0);
+		return (-1);
 	va_start(args, format);
 	while (format[i])
 	{
@@ -73,9 +62,15 @@ int	ft_printf(const char *format, ...)
 	va_end(args);
 	return (count + i - (args_count * 2));
 }
-
-/* int	main(void)
+/* 
+int	main(void)
 {
+	printf("C: %i\n", ft_printf(" %p ", 16));
+	printf("CP: %i \n", printf(" %p ", 16));
+	printf("C: %i\n", ft_printf(" %p %p ", LONG_MIN, LONG_MAX));
+	printf("CP: %i \n", printf(" %p %p ", LONG_MIN, LONG_MAX));
+	printf("C: %i\n", ft_printf(" %p %p ", INT_MIN, INT_MAX));
+	printf("CP: %i \n", printf(" %p %p ", INT_MIN, INT_MAX));
 	printf("C: %i\n", ft_printf(" %p %p ", ULONG_MAX, -ULONG_MAX));
 	printf("CP: %i \n", printf(" %p %p ", ULONG_MAX, -ULONG_MAX));
 	return (0);
