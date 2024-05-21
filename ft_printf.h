@@ -6,13 +6,11 @@
 /*   By: jalombar <jalombar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:41:59 by jalombar          #+#    #+#             */
-/*   Updated: 2024/05/21 12:11:03 by jalombar         ###   ########.fr       */
+/*   Updated: 2024/05/21 15:18:43 by jalombar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <limits.h>
 #include <stdarg.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 

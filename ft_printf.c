@@ -6,7 +6,7 @@
 /*   By: jalombar <jalombar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:45:47 by jalombar          #+#    #+#             */
-/*   Updated: 2024/05/21 12:10:05 by jalombar         ###   ########.fr       */
+/*   Updated: 2024/05/21 15:18:36 by jalombar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,22 +31,17 @@ int	ft_sort(va_list args, char format)
 	else if (format == '%')
 		return (ft_print_c('%'));
 	else
-		return (0);
+		return (-1);
 }
 
-int	ft_printf(const char *format, ...)
+int	ft_handle(va_list args, const char *format, int *args_count)
 {
-	int		i;
-	int		count;
-	int		args_count;
-	va_list	args;
+	int	i;
+	int	count;
+	int	temp;
 
 	i = 0;
 	count = 0;
-	args_count = 0;
-	if (!format)
-		return (-1);
-	va_start(args, format);
 	while (format[i])
 	{
 		if (format[i] != '%')
@@ -54,24 +49,35 @@ int	ft_printf(const char *format, ...)
 		else
 		{
 			i++;
-			count = count + ft_sort(args, format[i]);
-			args_count++;
+			temp = ft_sort(args, format[i]);
+			if (temp == -1)
+				return (-1);
+			else
+			{
+				count += temp;
+				*args_count += 1;
+			}
 		}
 		i++;
 	}
-	va_end(args);
-	return (count + i - (args_count * 2));
+	return (count + i);
 }
-/* 
-int	main(void)
+
+int	ft_printf(const char *format, ...)
 {
-	printf("C: %i\n", ft_printf(" %p ", 16));
-	printf("CP: %i \n", printf(" %p ", 16));
-	printf("C: %i\n", ft_printf(" %p %p ", LONG_MIN, LONG_MAX));
-	printf("CP: %i \n", printf(" %p %p ", LONG_MIN, LONG_MAX));
-	printf("C: %i\n", ft_printf(" %p %p ", INT_MIN, INT_MAX));
-	printf("CP: %i \n", printf(" %p %p ", INT_MIN, INT_MAX));
-	printf("C: %i\n", ft_printf(" %p %p ", ULONG_MAX, -ULONG_MAX));
-	printf("CP: %i \n", printf(" %p %p ", ULONG_MAX, -ULONG_MAX));
-	return (0);
-} */
+	int		count;
+	int		args_count;
+	va_list	args;
+
+	count = 0;
+	args_count = 0;
+	if (!format)
+		return (-1);
+	va_start(args, format);
+	count = ft_handle(args, format, &args_count);
+	va_end(args);
+	if (count == -1)
+		return (-1);
+	else
+		return (count - (args_count * 2));
+}
